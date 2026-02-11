@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { cn } from '@/lib/utils';
-import { Users } from 'lucide-react';
+import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
+import { Users } from "lucide-react";
+import Link from "next/link";
 
 interface ProgressIndicatorProps {
   current: number;
@@ -29,43 +30,64 @@ export function ProgressIndicator({ current, total }: ProgressIndicatorProps) {
         <div className="flex items-center justify-between gap-4 mb-3">
           {/* Text indicator */}
           <div className="flex items-center gap-2.5">
-            <div className={cn(
-              'w-8 h-8 rounded-full flex items-center justify-center transition-all duration-500',
-              isComplete
-                ? 'bg-emerald-500/20 border-2 border-emerald-500/50'
-                : 'bg-stone-800/50 border-2 border-stone-700/50'
-            )}>
-              <Users className={cn(
-                'w-4 h-4 transition-colors duration-500',
-                isComplete ? 'text-emerald-400' : 'text-stone-400'
-              )} />
+            <div
+              className={cn(
+                "w-8 h-8 rounded-full flex items-center justify-center transition-all duration-500",
+                isComplete
+                  ? "bg-emerald-500/20 border-2 border-emerald-500/50"
+                  : "bg-stone-800/50 border-2 border-stone-700/50",
+              )}
+            >
+              <Users
+                className={cn(
+                  "w-4 h-4 transition-colors duration-500",
+                  isComplete ? "text-emerald-400" : "text-stone-400",
+                )}
+              />
             </div>
             <div>
               <p className="text-sm font-medium text-stone-300">
-                <span className={cn(
-                  'font-bold transition-colors duration-500',
-                  isComplete ? 'text-emerald-400' : 'text-stone-100'
-                )}>
+                <span
+                  className={cn(
+                    "font-bold transition-colors duration-500",
+                    isComplete ? "text-emerald-400" : "text-stone-100",
+                  )}
+                >
                   {current}
                 </span>
                 <span className="text-stone-500 mx-1">/</span>
                 <span className="text-stone-400">{total}</span>
                 <span className="text-stone-500 ml-2">
-                  {current === 1 ? 'jugador ha' : 'jugadores han'} visto su palabra
+                  {current === 1 ? "jugador ha" : "jugadores han"} visto su palabra
                 </span>
               </p>
             </div>
           </div>
 
-          {/* Percentage badge */}
-          <div className={cn(
-            'px-3 py-1 rounded-full text-xs font-bold transition-all duration-500',
-            isComplete
-              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-              : 'bg-stone-800/50 text-stone-400 border border-stone-700/50'
-          )}>
-            {percentage}%
-          </div>
+          {/* Exit button - top right */}
+          <Link
+            href="/"
+            className="absolute top-2 right-4 sm:top-6 sm:right-6 z-50 group"
+          >
+            <button
+              className="w-10 h-10 sm:w-10 sm:h-10 rounded-full bg-stone-900/80 backdrop-blur-sm border-2 border-stone-700/50 hover:border-stone-600 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 hover:bg-stone-800/80 shadow-lg"
+              aria-label="Salir al inicio"
+            >
+              <svg
+                className="w-5 h-5 sm:w-6 sm:h-6 text-stone-400 group-hover:text-stone-200 transition-colors"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2.5}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </Link>
         </div>
 
         {/* Progress bar */}
@@ -76,16 +98,16 @@ export function ProgressIndicator({ current, total }: ProgressIndicatorProps) {
           {/* Progress fill */}
           <div
             className={cn(
-              'absolute inset-y-0 left-0 rounded-full transition-all duration-700 ease-out',
+              "absolute inset-y-0 left-0 rounded-full transition-all duration-700 ease-out",
               isComplete
-                ? 'bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-500'
-                : 'bg-gradient-to-r from-stone-600 via-stone-500 to-stone-600'
+                ? "bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-500"
+                : "bg-gradient-to-r from-stone-600 via-stone-500 to-stone-600",
             )}
             style={{
               width: `${progress}%`,
               boxShadow: isComplete
-                ? '0 0 10px rgba(16, 185, 129, 0.4), 0 0 20px rgba(16, 185, 129, 0.2)'
-                : '0 0 8px rgba(120, 113, 108, 0.3)',
+                ? "0 0 10px rgba(16, 185, 129, 0.4), 0 0 20px rgba(16, 185, 129, 0.2)"
+                : "0 0 8px rgba(120, 113, 108, 0.3)",
             }}
           >
             {/* Animated shine effect on progress bar */}

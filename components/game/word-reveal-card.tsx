@@ -30,7 +30,7 @@ export function WordRevealCard({
   return (
     <div className="relative w-full max-w-2xl mx-auto">
       {/* Player turn indicator */}
-      <div className="mb-6 text-center animate-fade-in-up">
+      <div className="mb-4 sm:mb-6 text-center animate-fade-in-up">
         <h2 className="text-3xl font-bold text-stone-100 mb-2">
           Turno de{' '}
           <span className="bg-gradient-to-r from-stone-300 via-stone-100 to-stone-300 bg-clip-text text-transparent">

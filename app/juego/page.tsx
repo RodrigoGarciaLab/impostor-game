@@ -151,31 +151,6 @@ function JuegoContent() {
         </div>
       </div>
 
-      {/* Exit button - top right */}
-      <Link
-        href="/"
-        className="absolute top-24 right-4 sm:top-6 sm:right-6 z-50 group"
-      >
-        <button
-          className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-stone-900/80 backdrop-blur-sm border-2 border-stone-700/50 hover:border-stone-600 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 hover:bg-stone-800/80 shadow-lg"
-          aria-label="Salir al inicio"
-        >
-          <svg
-            className="w-5 h-5 sm:w-6 sm:h-6 text-stone-400 group-hover:text-stone-200 transition-colors"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2.5}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-      </Link>
-
       {/* Main content */}
       <div className="relative z-10 min-h-screen flex flex-col">
         {/* Progress indicator */}
@@ -187,9 +162,9 @@ function JuegoContent() {
         )}
 
         {/* Game content */}
-        <div className="flex-1 flex items-center justify-center px-4 sm:px-6 py-12">
+        <div className="flex-1 flex items-center justify-center px-4 sm:px-6 py-4 sm:py-8">
           {!isGameComplete ? (
-            <div className="w-full max-w-3xl space-y-8">
+            <div className="w-full max-w-3xl space-y-4 sm:space-y-8">
               {/* Word reveal card */}
               <WordRevealCard
                 word={currentWord}
