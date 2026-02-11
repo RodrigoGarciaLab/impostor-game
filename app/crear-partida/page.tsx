@@ -1,24 +1,40 @@
-'use client';
+"use client";
 
-import { useState, FormEvent, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Separator } from '@/components/ui/separator';
-import { Switch } from '@/components/ui/switch';
-import { PlayerList } from '@/components/game/player-list';
-import { CategorySelector } from '@/components/game/category-selector';
-import { Category } from '@/lib/types';
-import { createGameConfig, saveGameState, encodeGameConfig, saveLastSetup, loadLastSetup } from '@/lib/game-logic';
-import { ArrowLeft, Play, AlertCircle } from 'lucide-react';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { useState, FormEvent, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { Switch } from "@/components/ui/switch";
+import { PlayerList } from "@/components/game/player-list";
+import { CategorySelector } from "@/components/game/category-selector";
+import { Category } from "@/lib/types";
+import {
+  createGameConfig,
+  saveGameState,
+  encodeGameConfig,
+  saveLastSetup,
+  loadLastSetup,
+} from "@/lib/game-logic";
+import { ArrowLeft, Play, AlertCircle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
-const ALL_CATEGORIES: Category[] = ['animales', 'comida', 'paises', 'profesiones', 'deportes', 'objetos', 'futbol', 'celebridades', 'marcas'];
+const ALL_CATEGORIES: Category[] = [
+  "animales",
+  "comida",
+  "paises",
+  "profesiones",
+  "deportes",
+  "objetos",
+  "futbol",
+  "celebridades",
+  "marcas",
+];
 
 export default function CrearPartida() {
   const router = useRouter();
-  const [playerName, setPlayerName] = useState('');
+  const [playerName, setPlayerName] = useState("");
   const [players, setPlayers] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
   const [includePlayersAsWords, setIncludePlayersAsWords] = useState(false);
@@ -46,7 +62,7 @@ export default function CrearPartida() {
 
     if (trimmedName && !players.includes(trimmedName)) {
       setPlayers([...players, trimmedName]);
-      setPlayerName('');
+      setPlayerName("");
       setShowError(false);
     }
   };
@@ -59,7 +75,7 @@ export default function CrearPartida() {
     setSelectedCategories((prev) =>
       prev.includes(category)
         ? prev.filter((c) => c !== category)
-        : [...prev, category]
+        : [...prev, category],
     );
     setShowError(false);
   };
@@ -74,7 +90,11 @@ export default function CrearPartida() {
     saveLastSetup(players, selectedCategories, includePlayersAsWords);
 
     // Create game configuration
-    const gameConfig = createGameConfig(players, selectedCategories, includePlayersAsWords);
+    const gameConfig = createGameConfig(
+      players,
+      selectedCategories,
+      includePlayersAsWords,
+    );
 
     // Save to sessionStorage
     saveGameState(gameConfig);
@@ -126,7 +146,10 @@ export default function CrearPartida() {
         <div className="flex-1 overflow-y-auto pb-32">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-12">
             {/* Section 1: Add Players */}
-            <section className="space-y-6 animate-fade-in-up" style={{ animationDelay: '100ms', animationFillMode: 'backwards' }}>
+            <section
+              className="space-y-6 animate-fade-in-up"
+              style={{ animationDelay: "100ms", animationFillMode: "backwards" }}
+            >
               <div>
                 <h2 className="text-2xl font-bold text-stone-200 mb-2">
                   Agregar Jugadores
@@ -149,7 +172,7 @@ export default function CrearPartida() {
                 <Button
                   type="submit"
                   disabled={!playerName.trim()}
-                  className="h-12 px-6 bg-stone-700 hover:bg-stone-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 active:scale-95"
+                  className="h-12 px-6 bg-stone-400 hover:bg-stone-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 active:scale-95"
                 >
                   Agregar
                 </Button>
@@ -166,13 +189,17 @@ export default function CrearPartida() {
             <Separator className="bg-stone-800/50" />
 
             {/* Section 2: Select Categories */}
-            <section className="space-y-6 animate-fade-in-up" style={{ animationDelay: '250ms', animationFillMode: 'backwards' }}>
+            <section
+              className="space-y-6 animate-fade-in-up"
+              style={{ animationDelay: "250ms", animationFillMode: "backwards" }}
+            >
               <div>
                 <h2 className="text-2xl font-bold text-stone-200 mb-2">
                   Seleccionar Temáticas
                 </h2>
                 <p className="text-stone-500 text-sm">
-                  Elige al menos {minCategories} temática para las palabras secretas
+                  Elige al menos {minCategories} temática para las palabras
+                  secretas
                 </p>
               </div>
 
@@ -188,14 +215,18 @@ export default function CrearPartida() {
             <Separator className="bg-stone-800/50" />
 
             {/* Section 3: Include Players Option */}
-            <section className="space-y-4 animate-fade-in-up" style={{ animationDelay: '400ms', animationFillMode: 'backwards' }}>
+            <section
+              className="space-y-4 animate-fade-in-up"
+              style={{ animationDelay: "400ms", animationFillMode: "backwards" }}
+            >
               <div className="flex items-center justify-between p-6 rounded-2xl bg-stone-900/50 border border-stone-800/50 hover:border-stone-700/70 transition-all duration-300">
                 <div className="flex-1 space-y-1">
                   <h3 className="text-lg font-bold text-stone-200">
                     Incluir jugadores
                   </h3>
                   <p className="text-sm text-stone-500">
-                    Los nombres de los jugadores pueden aparecer como palabras secretas
+                    Los nombres de los jugadores pueden aparecer como palabras
+                    secretas
                   </p>
                 </div>
                 <Switch
@@ -208,7 +239,9 @@ export default function CrearPartida() {
               {includePlayersAsWords && players.length > 0 && (
                 <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/30">
                   <p className="text-sm text-blue-400">
-                    <span className="font-semibold">Nota:</span> Si un jugador es seleccionado como palabra, se mostrará como "{players[0]} (jugador)"
+                    <span className="font-semibold">Nota:</span> Si un jugador es
+                    seleccionado como palabra, se mostrará como "{players[0]}{" "}
+                    (jugador)"
                   </p>
                 </div>
               )}
@@ -220,8 +253,9 @@ export default function CrearPartida() {
                 <AlertCircle className="w-4 h-4 text-red-400" />
                 <AlertDescription className="text-red-400 text-sm">
                   {!isPlayersValid && `Agrega al menos ${minPlayers} jugadores`}
-                  {!isPlayersValid && !isCategoriesValid && ' y '}
-                  {!isCategoriesValid && `selecciona al menos ${minCategories} temática`}
+                  {!isPlayersValid && !isCategoriesValid && " y "}
+                  {!isCategoriesValid &&
+                    `selecciona al menos ${minCategories} temática`}
                 </AlertDescription>
               </Alert>
             )}
@@ -242,14 +276,15 @@ export default function CrearPartida() {
                 ) : (
                   <div className="text-stone-500 text-sm">
                     <span className="block sm:hidden">
-                      {!isPlayersValid && 'Agrega jugadores'}
-                      {!isPlayersValid && !isCategoriesValid && ' • '}
-                      {!isCategoriesValid && 'Elige temáticas'}
+                      {!isPlayersValid && "Agrega jugadores"}
+                      {!isPlayersValid && !isCategoriesValid && " • "}
+                      {!isCategoriesValid && "Elige temáticas"}
                     </span>
                     <span className="hidden sm:block">
-                      {!isPlayersValid && `Falta${players.length === minPlayers - 1 ? '' : 'n'} ${minPlayers - players.length} jugador${minPlayers - players.length === 1 ? '' : 'es'}`}
-                      {!isPlayersValid && !isCategoriesValid && ' • '}
-                      {!isCategoriesValid && 'Selecciona una temática'}
+                      {!isPlayersValid &&
+                        `Falta${players.length === minPlayers - 1 ? "" : "n"} ${minPlayers - players.length} jugador${minPlayers - players.length === 1 ? "" : "es"}`}
+                      {!isPlayersValid && !isCategoriesValid && " • "}
+                      {!isCategoriesValid && "Selecciona una temática"}
                     </span>
                   </div>
                 )}
